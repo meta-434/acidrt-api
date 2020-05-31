@@ -4,11 +4,11 @@ const ReportsService = {
             .select('*')
             .from('reports');
     },
-    getReportsByOwnerId(knex, ownerId) {
+    getReportsByOwnerId(knex, reportId) {
         return knex
             .select('*')
             .from('reports')
-            .where({'report_owner': ownerId});
+            .where({'report_id': reportId});
     },
     // UPDATE FIELDS FOR THIS
     insertReport(knex, newReport) {
@@ -23,11 +23,11 @@ const ReportsService = {
                 return rows[0]
             });
     },
-    getById(knex, id, ownerId) {
+    getById(knex, id) {
         return knex
             .from('reports')
             .select('*')
-            .where({'id': id, 'report_owner': ownerId})
+            .where({'id': id})
             .first();
     },
     deleteReport(knex, id) {

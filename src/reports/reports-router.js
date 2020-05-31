@@ -8,8 +8,18 @@ const jsonParser = express.json();
 const serializeReport = report => (
     {
         id: report.id,
-        report_name: xss(report.report_name),
-        report_content: xss(report.report_content),
+        report_first: xss(report.report_first),
+        report_last: xss(report.report_last),
+        report_email: xss(report.report_email),
+        report_phone: xss(report.report_phone),
+        report_lat: report.report_lat,
+        report_lng: report.report_lng,
+        report_date: report.report_date,
+        report_time: report.report_time,
+        report_type: xss(report.report_type),
+        report_waterbody: xss(report.report_waterbody),
+        report_other: xss(report.report_other),
+        report_details: xss(report.report_details),
     }
 );
 
