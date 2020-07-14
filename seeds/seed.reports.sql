@@ -26,5 +26,20 @@ values
         'James River',
         'I feel pretty ok, how about you?',
         'the quick brown fox jumped over the lazy dog'
+    ),
+    (
+        'john',
+        'doe',
+        'email@email.com',
+        '123-123-1234',
+        38.030425,
+        -78.561065,
+        '2020-02-02',
+        '{"Suspicious discharge from pipe into stream"}',
+        '12:01',
+        'Rivanna River',
+        'abcd efgh ijkl',
+        'the slow blue cat tripped over the energetic lemur'
     )
+
 ;
