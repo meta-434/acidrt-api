@@ -10,8 +10,10 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const reportsRouter = require('./reports/reports-router');
 const AuthService = require('./auth-service');
+const ReportsService = require("./reports/reports-service");
 
 const app = express();
+const jsonParser = express.json();
 
 //set secret
 app.set('Secret', config.SECRET_KEY);
@@ -106,8 +108,38 @@ app.post('/authenticate',(req,res,next)=>{
         .catch(next);
 })
 
-// point to other endpoint routers
-ProtectedRoutes.use('/reports', reportsRouter);
+// globally available form post endpoint
+app.post('/submit', jsonParser, function(req, res, next) {
+    console.log('!!!')
+    const { report_first, report_last } = req.body;
+    const newReport = { report_first, report_last };
+
+    for (const [key, value] of Object.entries(newReport)) {
+        if (value == null) {
+            return res.status(400).json({
+                error: {
+                    message: `Missing '${key}' in request body`
+                }
+            });
+        }
+    }
+
+    ReportsService.insertReport(
+        req.app.get('db'),
+        newReport
+    )
+        .then(report => {
+            res
+                .status(201)
+                .location(`/api/reports/${report.id}`)
+                .json(serializeReport(newReport))
+                .end();
+        })
+        .catch(next);
+})
+
+// point to other endpoint router
+ProtectedRoutes.use("/reports", reportsRouter);
 
 // '/' catcher
 app.get('/', function(req, res) {

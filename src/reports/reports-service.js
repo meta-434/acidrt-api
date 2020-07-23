@@ -14,8 +14,8 @@ const ReportsService = {
     insertReport(knex, newReport) {
         return knex
             .insert({
-                'report_name':`${newReport.report_name}`,
-                'report_content':`${newReport.report_content}`,
+                'report_first':`${newReport.report_first}`,
+                'report_last':`${newReport.report_last}`,
             })
             .into('reports')
             .returning('*')
