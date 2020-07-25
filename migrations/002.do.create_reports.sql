@@ -7,7 +7,7 @@ create table reports (
     report_lat numeric(16, 14) not null,
     report_lng numeric(16, 14) not null,
     report_date text not null,
-    report_type text[] not null,
+    report_type text not null,
     report_time text,
     report_waterBody text,
     report_other text,
