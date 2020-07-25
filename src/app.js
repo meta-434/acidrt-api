@@ -108,11 +108,28 @@ app.post('/authenticate',(req,res,next)=>{
         .catch(next);
 })
 
+const serializeReport = report => (
+    {
+        id: report.id,
+        report_first: xss(report.report_first),
+        report_last: xss(report.report_last),
+        report_email: xss(report.report_email),
+        report_phone: xss(report.report_phone),
+        report_lat: report.report_lat,
+        report_lng: report.report_lng,
+        report_date: report.report_date,
+        report_time: report.report_time,
+        report_type: xss(report.report_type),
+        report_waterbody: xss(report.report_waterbody),
+        report_other: xss(report.report_other),
+        report_details: xss(report.report_details),
+    }
+);
+
 // globally available form post endpoint
 app.post('/submit', jsonParser, function(req, res, next) {
     console.log('!!!')
-    const { report_first, report_last } = req.body;
-    const newReport = { report_first, report_last };
+    const newReport = req.body;
 
     for (const [key, value] of Object.entries(newReport)) {
         if (value == null) {
@@ -123,7 +140,7 @@ app.post('/submit', jsonParser, function(req, res, next) {
             });
         }
     }
-
+    console.log('newReport', newReport);
     ReportsService.insertReport(
         req.app.get('db'),
         newReport
