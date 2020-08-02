@@ -43,6 +43,21 @@ reportsRouter
     })
     .get(function(req, res, next) {
         res.json(serializeReport(res.report));
+        next();
+    })
+    .put(function (req, res, next) {
+        const updatedReportId = req.params;
+        const updatedReportBody = req.body;
+        // console.log(updatedReportId, updatedReportBody);
+        ReportsService.updateReport(
+            req.app.get('db'),
+            req.params.report_id,
+            req.body,
+        )
+            .then(report => {
+                return res.status(200).json({report})
+            })
+            .catch(next);
     })
     .delete(function(req, res, next) {
         ReportsService.deleteReport(

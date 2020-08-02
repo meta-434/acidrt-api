@@ -62,7 +62,7 @@ ProtectedRoutes.use((req, res, next) =>{
 });
 
 // on successful authentication, return jwt to client for future access
-app.post('/authenticate',(req,res,next)=>{
+app.post('/authenticate', jsonParser, (req,res,next)=>{
     const knexInstance = req.app.get('db');
     AuthService.getAllUsers(knexInstance)
         .then(users => {
@@ -128,7 +128,6 @@ const serializeReport = report => (
 
 // globally available form post endpoint
 app.post('/submit', jsonParser, function(req, res, next) {
-    console.log('!!!')
     const newReport = req.body;
 
     for (const [key, value] of Object.entries(newReport)) {
@@ -140,7 +139,6 @@ app.post('/submit', jsonParser, function(req, res, next) {
             });
         }
     }
-    console.log('newReport', newReport);
     ReportsService.insertReport(
         req.app.get('db'),
         newReport

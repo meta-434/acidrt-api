@@ -10,7 +10,6 @@ const ReportsService = {
             .from('reports')
             .where({'report_id': reportId});
     },
-    // UPDATE FIELDS FOR THIS
     insertReport(knex, newReport) {
         return knex
             .insert({
@@ -44,6 +43,31 @@ const ReportsService = {
         return knex('reports')
             .where({id})
             .delete();
+    },
+    updateReport(knex, id, updatedReport) {
+        console.log(id)
+        return knex('reports')
+            .where('id', id)
+            .update(
+                {
+                    'report_first':`${updatedReport.report_first}`,
+                    'report_last':`${updatedReport.report_last}`,
+                    'report_email':`${updatedReport.report_email}`,
+                    'report_phone':`${updatedReport.report_phone}`,
+                    'report_lat': parseFloat(updatedReport.report_lat),
+                    'report_lng': parseFloat(updatedReport.report_lng),
+                    'report_date':`${updatedReport.report_date}`,
+                    'report_type':`${updatedReport.report_type}`,
+                    'report_time':`${updatedReport.report_time}`,
+                    'report_waterbody':`${updatedReport.report_waterbody}`,
+                    'report_other':`${updatedReport.report_other}`,
+                    'report_details':`${updatedReport.report_details}`,
+                }
+            )
+            .returning('*')
+            .then(rows => {
+                return rows[0]
+            });
     }
 };
 
