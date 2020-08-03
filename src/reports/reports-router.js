@@ -42,7 +42,7 @@ reportsRouter
             .catch(next)
     })
     .get(function(req, res, next) {
-        res.json(serializeReport(res.report));
+        res.status(200).json(serializeReport(res.report));
         next();
     })
     .put(function (req, res, next) {
@@ -78,7 +78,7 @@ reportsRouter
         const knexInstance = req.app.get('db');
         return ReportsService.getAllReports(knexInstance)
             .then(reports => {
-                res.json(reports.map(serializeReport))
+                res.status(200).json(reports.map(serializeReport))
             })
             .catch(next);
     });
