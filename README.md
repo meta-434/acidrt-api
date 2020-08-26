@@ -8,7 +8,7 @@ a dashboard displaying aggregated information at a glance, as well as all the re
 submitted to that point, with the ability to edit and delete them.
 
 - Server repo found [here](https://github.com/meta-434/acidrt-api)
-- Live site found [here](acidrt.alex-hapgood.info)
+- Live site found [here](https://acidrt.alex-hapgood.info/)
 
 ## Concept
 
