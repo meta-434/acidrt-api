@@ -3,6 +3,9 @@ require("dotenv").config();
 module.exports = {
   migrationsDirectory: "migrations",
   driver: "pg",
+  database: "acidrt",
+  username: "postgres",
+  password: "postgres",
   connectionString:
     process.env.NODE_ENV === "test"
       ? process.env.TEST_DATABASE_URL
